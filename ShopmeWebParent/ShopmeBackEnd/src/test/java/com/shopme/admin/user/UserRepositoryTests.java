@@ -45,7 +45,7 @@ public class UserRepositoryTests {
 		@Test
 		public void testCreateNewUserWithTwoRole() {
 
-			User userManish = new User("manish@gmail.com", "12345679", "manish", "gaikwad");
+			User userManish = new User("abcd@gmail.com", "12345679", "manish", "gaikwad");
 
 			Role roleEditor = new Role(3);
 			Role roleAssistant = new Role(5);
