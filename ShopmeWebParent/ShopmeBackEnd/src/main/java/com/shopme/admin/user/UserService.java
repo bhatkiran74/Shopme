@@ -30,4 +30,12 @@ public class UserService {
 		return (List<User>) userRepo.findAll();
 	}
 	
+	public List<Role> listRole(){
+		return (List<Role>) roleRepo.findAll();
+	}
+	
+	public void save(User user) {
+		userRepo.save(user);
+	}
+	
 }
