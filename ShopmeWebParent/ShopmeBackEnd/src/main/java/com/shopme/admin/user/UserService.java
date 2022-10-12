@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Role;
@@ -26,6 +27,11 @@ public class UserService {
 	private RoleRepository roleRepo;
 	
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
+	
 	public List<User> listAll(){
 		return (List<User>) userRepo.findAll();
 	}
@@ -35,7 +41,14 @@ public class UserService {
 	}
 	
 	public void save(User user) {
+		encoderPassword(user);
 		userRepo.save(user);
 	}
+	
+	private void encoderPassword(User user) {
+		String encodedPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
+	}
+	
 	
 }
