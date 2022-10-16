@@ -112,7 +112,9 @@ public class UserService {
 	
 	
 	
-	
+	public void updateEnabledstatus(Integer id, boolean enabled) {
+		userRepo.updateEnabledStatus(id, enabled);
+	}
 	
 
 }

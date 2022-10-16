@@ -137,4 +137,20 @@ public class UserRepositoryTests {
 
 		}
 		
+		@Test
+		public void testDisabledUser() {
+			Integer id = 7;
+
+			repo.updateEnabledStatus(id, false);
+		}
+
+		@Test
+		public void testEnabledUser() {
+			Integer id = 7;
+
+			repo.updateEnabledStatus(id, true);
+		}
+		
+		
+		
 }
