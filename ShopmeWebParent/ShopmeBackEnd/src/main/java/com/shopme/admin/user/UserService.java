@@ -38,7 +38,23 @@ public class UserService {
 	}
 
 	public void save(User user) {
-		encoderPassword(user);
+		boolean isUpdatingUser = (user.getId() != null);
+
+		if (isUpdatingUser) {
+			User existingUser = userRepo.findById(user.getId()).get();
+
+			if (user.getPassword().isEmpty()) {
+				user.setPassword(existingUser.getPassword());
+			} else {
+
+				encoderPassword(user);
+			}
+
+		} else {
+
+			encoderPassword(user);
+		}
+
 		userRepo.save(user);
 	}
 
@@ -47,9 +63,37 @@ public class UserService {
 		user.setPassword(encodedPassword);
 	}
 
-	public boolean isEmailUnique(String email) {
+	public boolean isEmailUnique(Integer id, String email) {
+		
 		User userByEmail = userRepo.getUserByEmail(email);
-		return userByEmail == null;
+
+//		return userByEmail == null;
+
+		if (userByEmail == null)
+			return true;
+
+		boolean isCreatingNew = (id == null);
+
+		if (isCreatingNew) {
+			if (userByEmail != null)
+				return false;
+		} else {
+			if (userByEmail.getId() != id) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public User get(Integer id) throws UserNotFoundException {
+		
+		try {
+			return userRepo.findById(id).get();
+		} catch (Exception e) {
+			throw new UserNotFoundException("Could not find any user with Id: "+id );
+		}
+		
 	}
 
 }

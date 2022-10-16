@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Shopme : Home Admin</title>
+<title>[[${pageTitle}]]</title>
 
 
 <!-- bootstrap , fontawesome , Css files  -->
@@ -103,7 +103,7 @@
 
 		<div class="text-center m-3">
 
-			<h1 >Manage User : Create User</h1>
+			<h1 >Manage User : [[${pageTitle}]]</h1>
 		</div>
 
 		<form th:action="@{/users/save}" method="post"
@@ -224,9 +224,11 @@
 	function checkEmailUnique(form) {
 			url = "[[@{/users/check_email}]]"; ///ShopmeAdmin/users/check_email
 			userEmail = $("#email").val(); // print email
+			userId = $("#id").val(); // print id
 			csrValue = $("input[name='_csrf']").val();
 			
 			params = {
+			id : userId,
 				email : userEmail,
 				_csrf : csrValue
 			};

@@ -47,6 +47,7 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("listRoles", listRoles);
+		model.addAttribute("pageTitle", "Create New User");
 		return "user_form";
 	}
 	
@@ -59,6 +60,26 @@ public class UserController {
 		userService.save(user);
 		return "redirect:/users";
 	}
+	
+	@GetMapping("/users/edit/{id}")
+	public String editUser(@PathVariable(name ="id")Integer id,RedirectAttributes redirectAttributes,Model model) throws UserNotFoundException {
+		
+		try {
+			User user = userService.get(id);
+			List<Role> listRoles = userService.listRole();
+			model.addAttribute("user", user);
+			model.addAttribute("listRoles", listRoles);
+			model.addAttribute("pageTitle", "Edit User (ID : "+id+")");
+			return "user_form";
+			
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("message", e.getMessage());
+			return "redirect:/users";
+		}
+		
+		
+	}
+	
 	
 	
 	
