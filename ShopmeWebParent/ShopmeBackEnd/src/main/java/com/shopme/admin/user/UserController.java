@@ -62,7 +62,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/edit/{id}")
-	public String editUser(@PathVariable(name ="id")Integer id,RedirectAttributes redirectAttributes,Model model) throws UserNotFoundException {
+	public String editUser(@PathVariable(name ="id")Integer id,RedirectAttributes redirectAttributes,Model model) {
 		
 		try {
 			User user = userService.get(id);
@@ -72,13 +72,28 @@ public class UserController {
 			model.addAttribute("pageTitle", "Edit User (ID : "+id+")");
 			return "user_form";
 			
-		} catch (Exception e) {
+		} catch (UserNotFoundException e) {
 			redirectAttributes.addFlashAttribute("message", e.getMessage());
 			return "redirect:/users";
 		}
 		
 		
 	}
+	
+	@GetMapping("/users/delete/{id}")
+	public String deleteUser(@PathVariable(name ="id")Integer id,RedirectAttributes redirectAttributes,Model model) {
+		
+		try {
+			userService.delete(id);
+			redirectAttributes.addFlashAttribute("message", "The User Id "+id +" has been deleted successfully");
+			
+		} catch (UserNotFoundException e) {
+			redirectAttributes.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/users";
+	}
+	
+	
 	
 	
 	
