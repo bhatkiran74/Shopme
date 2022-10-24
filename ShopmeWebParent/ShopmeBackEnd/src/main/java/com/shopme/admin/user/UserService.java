@@ -37,7 +37,7 @@ public class UserService {
 		return (List<Role>) roleRepo.findAll();
 	}
 
-	public void save(User user) {
+	public User save(User user) {
 		boolean isUpdatingUser = (user.getId() != null);
 
 		if (isUpdatingUser) {
@@ -55,7 +55,7 @@ public class UserService {
 			encoderPassword(user);
 		}
 
-		userRepo.save(user);
+		return userRepo.save(user);
 	}
 
 	private void encoderPassword(User user) {
