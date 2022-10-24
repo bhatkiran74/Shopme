@@ -58,6 +58,9 @@ public class UserController {
 		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully...");
 		System.out.println(user);
 		userService.save(user);
+//		userService.save(user);
+//		userService.save(user);
+//		userService.save(user);
 		return "redirect:/users";
 	}
 	
